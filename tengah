@@ -1,0 +1,88 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+
+public class Tengah {
+
+    static void SisiPanjang(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glTexCoord2d(0, 0);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glTexCoord2d(1, 0);
+        gl.glVertex3d(8.5, -0.5, 1);
+        gl.glTexCoord2d(1, 1);
+        gl.glVertex3d(8.5, 0.5, 1);
+        gl.glTexCoord2d(0, 1);
+        gl.glVertex3d(-0.5, 0.5, 1);
+        gl.glEnd();
+    }
+
+    static void SisiLebar(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glTexCoord2d(0, 0);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glTexCoord2d(1, 0);
+        gl.glVertex3d(1, -0.5, 1);
+        gl.glTexCoord2d(1, 1);
+        gl.glVertex3d(1, 0.5, 1);
+        gl.glTexCoord2d(0, 1);
+        gl.glVertex3d(-0.5, 0.5, 1);
+        gl.glEnd();
+    }
+
+    static void SisiLangit(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glTexCoord2d(0, 0);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glTexCoord2d(1, 0);
+        gl.glVertex3d(8.5, -0.5, 1);
+        gl.glTexCoord2d(1, 1);
+        gl.glVertex3d(8.5, 1, 1);
+        gl.glTexCoord2d(0, 1);
+        gl.glVertex3d(-0.5, 1, 1);
+        gl.glEnd();
+    }
+
+    static void Balokisi(GL gl) {
+        //belakang
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, -1.5);
+        SisiPanjang(gl);
+        gl.glPopMatrix();
+
+        //depan
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, 0);
+        SisiPanjang(gl);
+        gl.glPopMatrix();
+
+        //samping kiri
+        gl.glPushMatrix();
+        gl.glTranslated(-1.5, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        SisiLebar(gl);
+        gl.glPopMatrix();
+
+        //samping kanan
+        gl.glPushMatrix();
+        gl.glTranslated(7.5, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        SisiLebar(gl);
+        gl.glPopMatrix();
+
+        //alas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.5, 0);
+        gl.glRotated(90, 1, 0, 0);
+        SisiLangit(gl);
+        gl.glPopMatrix();
+
+        //atas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 1.5, 0);
+        gl.glRotated(90, 1, 0, 0);
+        SisiLangit(gl);
+        gl.glPopMatrix();
+    }
+
+}
