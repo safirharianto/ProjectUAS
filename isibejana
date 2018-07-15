@@ -1,0 +1,92 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+import static org.yourorghere.Hidrolik2.kurangi;
+import static org.yourorghere.Hidrolik2.kurangi3;
+import static org.yourorghere.Hidrolik2.tambah;
+import static org.yourorghere.Hidrolik2.Tair;
+
+ public class IsiBejana {
+
+    public static void persegi(GL gl, double panjang, double lebar) {
+        Tair.enable();
+        Tair.bind();;
+        gl.glBegin(GL.GL_POLYGON);
+        gl.glTexCoord2f(0, 0);
+        gl.glVertex3d(0, 0, 0);
+        gl.glTexCoord2f(1, 0);
+        gl.glVertex3d(panjang, 0, 0);
+        gl.glTexCoord2f(1, 1);
+        gl.glVertex3d(panjang, lebar, 0);
+        gl.glTexCoord2f(0, 1);
+        gl.glVertex3d(0, lebar, 0);
+        gl.glEnd();
+        Tair.disable();
+    }
+    public static void perseginoText(GL gl, double panjang, double lebar) {
+        Tair.enable();
+        Tair.bind();;
+        gl.glBegin(GL.GL_POLYGON);
+        gl.glVertex3d(0, 0, 0);
+        gl.glVertex3d(panjang, 0, 0);
+        gl.glVertex3d(panjang, lebar, 0);
+        gl.glVertex3d(0, lebar, 0);
+        gl.glEnd();
+        Tair.disable();
+    }
+
+    public static void balok(GL gl, double p, double l, double t) {
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glRotated(-90, 1, 0, 0); //bawah
+        persegi(gl, p, l);
+        gl.glTranslated(0, 0, t);
+        persegi(gl, p, l);//atas
+        gl.glTranslated(0, 0, -t);
+        gl.glRotated(90, 1, 0, 0);//pengembalian
+        persegi(gl, p, t);//depan
+        gl.glTranslated(0, 0, -l);
+        persegi(gl, p, t);//belakang
+        gl.glTranslated(0, 0, l);
+        gl.glRotated(90, 0, 1, 0);
+        persegi(gl, l, t);//kiri
+        gl.glTranslated(0, 0, p++);
+        persegi(gl, l, t);//kanan
+        gl.glPopMatrix();
+    }
+    public static void baloknoTex(GL gl, double p, double l, double t) {
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glRotated(-90, 1, 0, 0); //bawah
+        perseginoText(gl, p, l);
+        gl.glTranslated(0, 0, t);
+        perseginoText(gl, p, l);//atas
+        gl.glTranslated(0, 0, -t);
+        gl.glRotated(90, 1, 0, 0);//pengembalian
+        perseginoText(gl, p, t);//depan
+        gl.glTranslated(0, 0, -l);
+        perseginoText(gl, p, t);//belakang
+        gl.glTranslated(0, 0, l);
+        gl.glRotated(90, 0, 1, 0);
+        perseginoText(gl, l, t);//kiri
+        gl.glTranslated(0, 0, p++);
+        perseginoText(gl, l, t);//kanan
+        gl.glPopMatrix();
+    }
+
+    public static void isiBejana(GL gl) {
+        gl.glPushMatrix();
+        gl.glTranslated(-2.7, 0, 0);
+        gl.glPushMatrix();
+        gl.glTranslated(1.3, 0, 0);
+        balok(gl, 1.3, 1, 2.6 - kurangi);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(2, 0, 0);
+        balok(gl, 6, 1, 1);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(8, 0, 0);
+        balok(gl, 2.15, 1, 2+ tambah);
+        gl.glPopMatrix();
+        gl.glPopMatrix();
+    }
+}
