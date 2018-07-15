@@ -1,0 +1,66 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+import static org.yourorghere.Hidrolik2.kurangi;
+import static org.yourorghere.Hidrolik2.kurangi3;
+import static org.yourorghere.Hidrolik2.tambah;
+import static org.yourorghere.Hidrolik2.Tair;
+import static org.yourorghere.Hidrolik2.texture;
+
+public class Objek {
+
+    public static void persegi(GL gl, double panjang, double lebar) {
+        gl.glBegin(GL.GL_POLYGON);
+        gl.glTexCoord2f(0, 0);
+        gl.glVertex3d(-panjang / 2, 0, -lebar / 2);
+        gl.glTexCoord2f(1, 0);
+        gl.glVertex3d(panjang / 2, 0, -lebar / 2);
+        gl.glTexCoord2f(1, 1);
+        gl.glVertex3d(panjang / 2, 0, lebar / 2);
+        gl.glTexCoord2f(0, 1);
+        gl.glVertex3d(-panjang / 2, 0, lebar / 2);
+        gl.glEnd();
+    }
+
+    public static void balok(GL gl, double p, double t, double l) {
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        persegi(gl, p, l);
+        gl.glTranslated(0, t, 0);
+        persegi(gl, p, l);
+        gl.glPopMatrix();
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glTranslated(0, t / 2, 0);
+        gl.glRotated(90, 1, 0, 0);
+        gl.glTranslated(0, -l / 2, 0);
+        persegi(gl, p, t);
+        gl.glTranslated(0, l, 0);
+        persegi(gl, p, t);
+        gl.glPopMatrix();
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glTranslated(0, t / 2, 0);
+        gl.glRotated(90, 0, 0, 1);
+        gl.glTranslated(0, -p / 2, 0);
+        persegi(gl, t, l);
+        gl.glTranslated(0, p, 0);
+        persegi(gl, t, l);
+        gl.glPopMatrix();
+    }
+
+    public static void isiBejana(GL gl, double skala) {
+        Tair.enable();
+        Tair.bind();
+        gl.glPushMatrix();
+        gl.glTranslated(-skala * 0.075, 0, 0);
+        balok(gl, skala * 0.6, skala * 0.1, skala * 0.18);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(-skala * 0.425, 0, 0);
+        balok(gl, skala * 0.15, skala * 0.22, skala * 0.18);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(skala * 0.35, 0, 0);
+        balok(gl, skala * 0.28, skala * 0.28, skala * 0.18);
+        gl.glPopMatrix();
+        Tair.disable();
+    }
+}
