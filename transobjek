@@ -1,0 +1,66 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+import static org.yourorghere.Hidrolik2.Tair;
+import static org.yourorghere.Hidrolik2.texture;
+
+
+public class TransObjek {
+
+    public static void persegi(GL gl, double panjang, double lebar) {
+        gl.glBegin(GL.GL_POLYGON);
+        gl.glTexCoord2f(0, 0);
+        gl.glVertex3d(-panjang / 2, 0, -lebar / 2);
+        gl.glTexCoord2f(1, 0);
+        gl.glVertex3d(panjang / 2, 0, -lebar / 2);
+        gl.glTexCoord2f(1, 1);
+        gl.glVertex3d(panjang / 2, 0, lebar / 2);
+        gl.glTexCoord2f(0, 1);
+        gl.glVertex3d(-panjang / 2, 0, lebar / 2);
+        gl.glEnd();
+    }
+
+    public static void balok(GL gl, double p, double t, double l) {
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        persegi(gl, p, l);
+        gl.glTranslated(0, t, 0);
+        persegi(gl, p, l);
+        gl.glPopMatrix();
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glTranslated(0, t / 2, 0);
+        gl.glRotated(90, 1, 0, 0);
+        gl.glTranslated(0, -l / 2, 0);
+        persegi(gl, p, t);
+        gl.glTranslated(0, l, 0);
+        persegi(gl, p, t);
+        gl.glPopMatrix();
+        gl.glPushMatrix();//agar tidak mempengaruhi yang lain
+        gl.glTranslated(0, t / 2, 0);
+        gl.glRotated(90, 0, 0, 1);
+        gl.glTranslated(0, -p / 2, 0);
+        persegi(gl, t, l);
+        gl.glTranslated(0, p, 0);
+        persegi(gl, t, l);
+        gl.glPopMatrix();
+    }
+
+    public static void Bejana(GL gl, double skala) {
+        texture.enable();
+        texture.bind();
+        gl.glPushMatrix();
+//        gl.glColor4f(0f, 1f, 1f, 0.05f);
+        gl.glPushMatrix();
+        balok(gl, skala * 1.01, skala * 0.15, skala * 0.25);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(-skala * 0.425, 0, 0);
+        balok(gl, skala * 0.15 * 1.06, skala * 0.2, skala * 0.25);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(skala * 0.35, 0, 0);
+        balok(gl, skala * 0.3 * 1.05, skala * 0.2, skala * 0.25);
+        gl.glPopMatrix();
+        gl.glPopMatrix();
+        texture.disable();
+    }
+}
