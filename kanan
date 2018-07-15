@@ -1,0 +1,246 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+
+public class Kanan {
+
+    static void Sisikananpanjang(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(2, -0.5, 1);
+        gl.glVertex3d(2, 1, 1);
+        gl.glVertex3d(-0.5, 1, 1);
+        gl.glEnd();
+    }
+
+    static void Sisikananlebar(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(1, -0.5, 1);
+        gl.glVertex3d(1, 1, 1);
+        gl.glVertex3d(-0.5, 1, 1);
+        gl.glEnd();
+    }
+
+    static void Sisikananlangit(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(2, -0.5, 1);
+        gl.glVertex3d(2, 1, 1);
+        gl.glVertex3d(-0.5, 1, 1);
+        gl.glEnd();
+    }
+
+    static void Balokkanan(GL gl) {
+        //belakang
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, -1.5);
+        Sisikananpanjang(gl);
+        gl.glPopMatrix();
+
+        //depan
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, 0);
+        Sisikananpanjang(gl);
+        gl.glPopMatrix();
+
+        //samping kiri
+        gl.glPushMatrix();
+        gl.glTranslated(-1.5, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        Sisikananlebar(gl);
+        gl.glPopMatrix();
+
+        //samping kanan
+        gl.glPushMatrix();
+        gl.glTranslated(1, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        Sisikananlebar(gl);
+        gl.glPopMatrix();
+
+        //alas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.5, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisikananlangit(gl);
+        gl.glPopMatrix();
+
+        //atas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 2, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisikananlangit(gl);
+        gl.glPopMatrix();
+    }
+
+    static void Sisidorongpanjang(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(2, -0.5, 1);
+        gl.glVertex3d(2, -0.25, 1);
+        gl.glVertex3d(-0.5, -0.25, 1);
+        gl.glEnd();
+    }
+
+    static void Sisidoronglebar(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(1, -0.5, 1);
+        gl.glVertex3d(1, -0.25, 1);
+        gl.glVertex3d(-0.5, -0.25, 1);
+        gl.glEnd();
+    }
+
+    static void Sisidoronglangit(GL gl) {
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glVertex3d(-0.5, -0.5, 1);
+        gl.glVertex3d(2, -0.5, 1);
+        gl.glVertex3d(2, 1, 1);
+        gl.glVertex3d(-0.5, 1, 1);
+        gl.glEnd();
+    }
+
+    static void Pendorong(GL gl) {
+        //belakang
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, -1.5);
+        Sisidorongpanjang(gl);
+        gl.glPopMatrix();
+
+        //depan
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0, 0);
+        Sisidorongpanjang(gl);
+        gl.glPopMatrix();
+
+        //samping kiri
+        gl.glPushMatrix();
+        gl.glTranslated(-1.5, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        Sisidoronglebar(gl);
+        gl.glPopMatrix();
+
+        //samping kanan
+        gl.glPushMatrix();
+        gl.glTranslated(1, 0, 0.5);
+        gl.glRotated(90, 0, 1, 0);
+        Sisidoronglebar(gl);
+        gl.glPopMatrix();
+
+        //alas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.5, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisidoronglangit(gl);
+        gl.glPopMatrix();
+
+        //atas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.75, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisidoronglangit(gl);
+        gl.glPopMatrix();
+    }
+
+    static void Beban(GL gl) {
+        //belakang
+        double y = 0;
+        for (int i = 0; i < 6; i++) {
+            gl.glPushMatrix();
+            gl.glTranslated(0, y, -1.5);
+            Sisidorongpanjang(gl);
+            gl.glPopMatrix();
+            y = y + 0.2;
+
+        }
+
+        //depan
+        double x = 0;
+        for (int i = 0; i < 6; i++) {
+
+            gl.glPushMatrix();
+            gl.glTranslated(0, x, 0);
+            Sisidorongpanjang(gl);
+            gl.glPopMatrix();
+            x = x + 0.2;
+        }
+
+        //samping kiri
+        double z = 0;
+        for (int i = 0; i < 6; i++) {
+            gl.glPushMatrix();
+            gl.glTranslated(-1.5, z, 0.5);
+            gl.glRotated(90, 0, 1, 0);
+            Sisidoronglebar(gl);
+            gl.glPopMatrix();
+            z = z + 0.2;
+
+        }
+
+        //samping kanan
+        double o = 0;
+        for (int i = 0; i < 6; i++) {
+            gl.glPushMatrix();
+            gl.glTranslated(1, o, 0.5);
+            gl.glRotated(90, 0, 1, 0);
+            Sisidoronglebar(gl);
+            gl.glPopMatrix();
+            o =o + 0.2;
+
+        }
+
+
+        //alas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.5, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisidoronglangit(gl);
+        gl.glPopMatrix();
+
+        //atas
+        gl.glPushMatrix();
+        gl.glTranslated(0, 0.75, 0);
+        gl.glRotated(90, 1, 0, 0);
+        Sisidoronglangit(gl);
+        gl.glPopMatrix();
+
+    }
+
+    static void Pompa(GL gl) {
+        gl.glBegin(GL.GL_POLYGON);//depan
+        gl.glVertex3f(0f, 0f, 0f);
+        gl.glVertex3f(0f, -1.5f, 0f);
+        gl.glVertex3f(0.5f, -1.5f, 0f);
+        gl.glVertex3f(0.5f, 0f, 0f);
+        gl.glEnd();
+
+        gl.glBegin(GL.GL_POLYGON);//kanan
+        gl.glVertex3f(0.5f, 0f, 0f);
+        gl.glVertex3f(0.5f, -1.5f, 0f);
+        gl.glVertex3f(0.5f, -1.5f, -0.5f);
+        gl.glVertex3f(0.5f, 0f, -0.5f);
+        gl.glEnd();
+
+        gl.glBegin(GL.GL_POLYGON);//blakang
+        gl.glVertex3f(0.5f, 0f, -0.5f);
+        gl.glVertex3f(0.5f, -1.5f, -0.5f);
+        gl.glVertex3f(-0.0f, -1.5f, -0.5f);
+        gl.glVertex3f(0f, 0f, -0.5f);
+        gl.glEnd();
+
+        gl.glBegin(GL.GL_POLYGON);
+        gl.glVertex3f(0f, 0f, 0f);
+        gl.glVertex3f(0f, -1.5f, 0f);
+        gl.glVertex3f(0f, -1.5f, -0.5f);
+        gl.glVertex3f(0f, 0f, -0.5f);
+        gl.glEnd();
+
+    }
+
+    static void Pompabawah(GL gl) {
+        gl.glTranslated(0, -1, 0);
+        gl.glRotated(90, 0, 0, 1);
+        Pompa(gl);
+
+    }
+}
